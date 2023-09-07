@@ -1,26 +1,20 @@
 pipeline {
-    agent any
-    
-    stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-        stage('Build') {
-            steps {
-                sh 'echo "Building the project"'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'echo "Running tests"'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                sh 'echo "Deploying the application"'
-            }
-        }
+  agent any
+  stages {
+    stage('Checkout') {
+      steps {
+        git 'https://github.com/your-username/your-repo.git'
+      }
     }
+    stage('Build') {
+      steps {
+        sh 'mvn clean install'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sh 'cp target/my-app.jar /opt/my-app/'
+      }
+    }
+  }
 }
